@@ -7,7 +7,7 @@ using namespace std;
 #define inf 100000000
 
 map<int,vector<pii>>graph;
-int n,m,src;
+int n,m,src,minWeight=0;
 
 void prim(){
     vector<int>parent(n,-1),isMst(n,0),key(n,inf);
@@ -17,9 +17,8 @@ void prim(){
     while(!q.empty()){
         auto [w,u]=q.top();
         q.pop();
-        if(isMst[u]){
-            continue;
-        }
+        if(isMst[u])continue;
+        minWeight+=w;
         isMst[u]=true;
         for(auto [v,weight]:graph[u]){
             if(!isMst[v]&&key[v]>weight){
@@ -30,6 +29,7 @@ void prim(){
         }
     }
     for(int i=0;i<n;i++)cout<<i<<" "<<parent[i]<<endl;
+    cout<<"The cost for MST is "<<minWeight<<endl;
 }
 
 int main()
@@ -61,3 +61,4 @@ int main()
 6 8 6 
 7 8 7
 */
+
